@@ -18,6 +18,13 @@ Module.register("MMM-StreamView", {
         showTitle: true,
         loop: true,
         showDuration: true
+      },
+      {
+        title: 'title',
+        src: 'http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
+        showTitle: true,
+        loop: true,
+        showDuration: true
       }
     ]
 	},
