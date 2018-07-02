@@ -14,7 +14,7 @@ Module.register("MMM-StreamView", {
     streams: [
       {
         title: 'title',
-        src: '/MMM-StreamView/public/placeholder/SampleVideo_1280x720_1mb.mp4',
+        src: 'http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
         showTitle: true,
         loop: true,
         showDuration: true
@@ -34,9 +34,9 @@ Module.register("MMM-StreamView", {
 
 		// Schedule update timer.
 		this.getData();
-		  setInterval(function() {
-			  self.updateDom();
-		  }, this.config.updateInterval);
+    setInterval(function() {
+      self.updateDom();
+    }, this.config.updateInterval);
 	},
 
 	/*
@@ -46,32 +46,39 @@ Module.register("MMM-StreamView", {
 	 *
 	 */
 	getData: function() {
-		var self = this;
+    var self = this;
+    var streams = this.config.streams;
+    if(streams.length > 0){
+      for(stream in streams){
 
-		var urlApi = "https://jsonplaceholder.typicode.com/posts/1";
-		var retry = true;
-
-		var dataRequest = new XMLHttpRequest();
-		dataRequest.open("GET", urlApi, true);
-		dataRequest.onreadystatechange = function() {
-			console.log(this.readyState);
-			if (this.readyState === 4) {
-				console.log(this.status);
-				if (this.status === 200) {
-					self.processData(JSON.parse(this.response));
-				} else if (this.status === 401) {
-					self.updateDom(self.config.animationSpeed);
-					Log.error(self.name, this.status);
-					retry = false;
-				} else {
-					Log.error(self.name, "Could not load data.");
-				}
-				if (retry) {
-					self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
-				}
-			}
-		};
-		dataRequest.send();
+        var urlApi = stream.src;
+        var retry = true;
+    
+        var dataRequest = new XMLHttpRequest();
+        dataRequest.open("GET", urlApi, true);
+        dataRequest.responseType = 'blob';
+        dataRequest.onreadystatechange = function() {
+          console.log(this.readyState);
+          if (this.readyState === 4) {
+            console.log(this.status);
+            if (this.status === 200) {
+              self.processData(JSON.parse(this.response));
+            } else if (this.status === 401) {
+              self.updateDom(self.config.animationSpeed);
+              Log.error(self.name, this.status);
+              retry = false;
+            } else {
+              Log.error(self.name, "Could not load data.");
+            }
+            if (retry) {
+              self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
+            }
+          }
+        };
+        dataRequest.send();
+      }
+    }
+    
 	},
 
 
