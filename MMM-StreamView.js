@@ -107,18 +107,18 @@ Module.register("MMM-StreamView", {
 		var wrapper = document.createElement("div");
 		// If this.dataRequest is not empty
 		if (this.dataRequest) {
-			var wrapperDataRequest = document.createElement("div");
-			// check format https://jsonplaceholder.typicode.com/posts/1
-			wrapperDataRequest.innerHTML = this.dataRequest.title;
+      var videoBlob = this.dataRequest;
+      var wrapperVideoRequest = document.createElement("video");
+      wrapperVideoRequest.src = URL.createObjectURL(videoBlob); // IE10+
+      wrapperVideoRequest.autoplay = true;
+      wrapperVideoRequest.loop = true;
 
 			var labelDataRequest = document.createElement("label");
 			// Use translate function
 			//             this id defined in translations files
 			labelDataRequest.innerHTML = this.translate("TITLE");
-
-
 			wrapper.appendChild(labelDataRequest);
-			wrapper.appendChild(wrapperDataRequest);
+			wrapper.appendChild(wrapperVideoRequest);
 		}
 
 		// Data from helper
