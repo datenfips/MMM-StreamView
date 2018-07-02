@@ -48,6 +48,7 @@ Module.register("MMM-StreamView", {
 	getData: function() {
     var self = this;
     var streams = this.config.streams;
+    console.log(streams);
     if(streams.length > 0){
       for(stream in streams){
 
