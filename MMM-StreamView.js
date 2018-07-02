@@ -69,7 +69,7 @@ Module.register("MMM-StreamView", {
         }
       };
       dataRequest.send();
-    }
+    
 	},
 
 
