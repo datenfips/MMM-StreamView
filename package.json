@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Todo: Insert description here!",
   "main": "MMM-StreamView.js",
-  "author": "",
+  "author": "Philipp Siegmund",
   "license": "MIT",
   "devDependencies": {
     "grunt": "latest",

@@ -1,8 +1,9 @@
 # MMM-StreamView
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
+It was HEAVILY inspired by [brobergp/MMM-htmlvideo](https://github.com/brobergp/MMM-htmlvideo) but suited to fit my needs. It is re-written based on [roramirez/MagicMirror-Module-Template](https://github.com/roramirez/MagicMirror-Module-Template).
 
-Todo: Insert description here!
+The inital idea was to show the traffic cams around my area to be mentally prepared when the morning ride starts and if I have to expect high traffic or plan working from the home office.
 
 ## Using the module
 

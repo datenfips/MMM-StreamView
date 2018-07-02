@@ -3,14 +3,23 @@
 /* Magic Mirror
  * Module: MMM-StreamView
  *
- * By 
+ * By Philipp Siegmund
  * MIT Licensed.
  */
 
 Module.register("MMM-StreamView", {
 	defaults: {
-		updateInterval: 60000,
-		retryDelay: 5000
+		updateInterval: 300000, // 5min = 300000ms
+    retryDelay: 5000,
+    streams: [
+      {
+        title: 'title',
+        src: '/MMM-StreamView/public/placeholder/SampleVideo_1280x720_1mb.mp4',
+        showTitle: true,
+        loop: true,
+        showDuration: true
+      }
+    ]
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -25,9 +34,9 @@ Module.register("MMM-StreamView", {
 
 		// Schedule update timer.
 		this.getData();
-		setInterval(function() {
-			self.updateDom();
-		}, this.config.updateInterval);
+		  setInterval(function() {
+			  self.updateDom();
+		  }, this.config.updateInterval);
 	},
 
 	/*
@@ -131,7 +140,7 @@ Module.register("MMM-StreamView", {
 		//FIXME: This can be load a one file javascript definition
 		return {
 			en: "translations/en.json",
-			es: "translations/es.json"
+			es: "translations/de.json"
 		};
 	},
 
