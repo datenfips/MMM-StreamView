@@ -11,22 +11,11 @@ Module.register("MMM-StreamView", {
 	defaults: {
 		updateInterval: 300000, // 5min = 300000ms
     retryDelay: 5000,
-    streams: [
-      {
-        title: 'title',
-        src: 'http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
-        showTitle: true,
-        loop: true,
-        showDuration: true
-      },
-      {
-        title: 'title',
-        src: 'http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
-        showTitle: true,
-        loop: true,
-        showDuration: true
-      }
-    ]
+    title: 'title',
+    src: this.file('public/placeholder/SampleVideo_1280x720_1mb.mp4'),
+    showTitle: true,
+    loop: true,
+    showDuration: true
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -54,39 +43,33 @@ Module.register("MMM-StreamView", {
 	 */
 	getData: function() {
     var self = this;
-    var streams = this.config.streams;
-    console.log(streams);
-    if(streams.length > 0){
-      for(stream in streams){
-
-        var urlApi = stream.src;
-        var retry = true;
     
-        var dataRequest = new XMLHttpRequest();
-        dataRequest.open("GET", urlApi, true);
-        dataRequest.responseType = 'blob';
-        dataRequest.onreadystatechange = function() {
-          console.log(this.readyState);
-          if (this.readyState === 4) {
-            console.log(this.status);
-            if (this.status === 200) {
-              self.processData(JSON.parse(this.response));
-            } else if (this.status === 401) {
-              self.updateDom(self.config.animationSpeed);
-              Log.error(self.name, this.status);
-              retry = false;
-            } else {
-              Log.error(self.name, "Could not load data.");
-            }
-            if (retry) {
-              self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
-            }
+    var urlApi = this.config.stream.src;
+    var retry = true;
+    
+    var dataRequest = new XMLHttpRequest();
+    dataRequest.open("GET", urlApi, true);
+    dataRequest.responseType = 'blob';
+    dataRequest.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (this.readyState === 4) {
+          console.log(this.status);
+          if (this.status === 200) {
+            self.processData(JSON.parse(this.response));
+          } else if (this.status === 401) {
+            self.updateDom(self.config.animationSpeed);
+            Log.error(self.name, this.status);
+            retry = false;
+          } else {
+            Log.error(self.name, "Could not load data.");
           }
-        };
-        dataRequest.send();
-      }
+          if (retry) {
+            self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
+          }
+        }
+      };
+      dataRequest.send();
     }
-    
 	},
 
 
